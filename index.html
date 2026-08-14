@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkyView Digital — Filmy z drona i strony internetowe | Trójmiasto</title>
+<meta name="description" content="Filmy z drona i strony internetowe dla firm w Trójmieście. Jedna ekipa, jeden kontakt, realizacja w 2-3 tygodnie.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="ring" id="ring"></div>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#hero" class="brand"><img src="images/skyview-logo.png" alt="SkyView Digital"> SkyView Digital</a>
+    <div class="nav-links">
+      <a href="#wow">Portfolio</a>
+      <a href="#routes">Usługi</a>
+      <a href="#faq">FAQ</a>
+      <a href="#booking">Kontakt</a>
+    </div>
+    <a href="#booking" class="nav-cta">Porozmawiajmy</a>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close" aria-label="Zamknij">✕</button>
+  <a href="#wow">Portfolio</a>
+  <a href="#routes">Usługi</a>
+  <a href="#faq">FAQ</a>
+  <a href="#booking">Kontakt</a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <canvas id="sky"></canvas>
+  <div class="wrap">
+    <p class="eyebrow">SkyView Digital — Trójmiasto</p>
+    <h1>
+      <span class="line"><span>Wyżej niż</span></span>
+      <span class="line"><span>konkurencja.</span></span>
+    </h1>
+    <p class="sub">Filmy z drona i strony internetowe, które robią pierwsze wrażenie za Ciebie.</p>
+    <div class="ctas">
+      <a href="#booking" class="btn btn-gold">Umów rozmowę</a>
+      <a href="#wow" class="btn btn-ghost">Zobacz efekt</a>
+    </div>
+    <div class="alt">ALT <b id="altnum">000</b>M</div>
+  </div>
+  <div class="scrollcue"><span>SCROLL</span><div class="bar"></div></div>
+</section>
+
+<div class="strip">
+  <div class="track">
+    <span>Filmy dronowe</span><span>Strony internetowe</span><span>Hosting i domeny</span><span>Grafika social media</span><span>Konsultacje marketingowe</span>
+    <span>Filmy dronowe</span><span>Strony internetowe</span><span>Hosting i domeny</span><span>Grafika social media</span><span>Konsultacje marketingowe</span>
+  </div>
+</div>
+
+<!-- ============ WOW / DEMO ============ -->
+<section id="wow">
+  <div class="wrap">
+    <p class="eyebrow">Efekt wow w 60 sekund</p>
+    <h2>Odkryj <em>proces</em></h2>
+    <div class="wow-card" style="margin-top:40px">
+      <div class="wow-media wow-placeholder">
+        <div class="wow-overlay">
+          <div>
+            <h3>Pierwsza historia</h3>
+            <p>Każdy projekt zaczyna się od słuchania. Dopiero potem latamy.</p>
+            <button class="play-btn" id="playDemoBtn"><span class="dot"></span> Zobacz jak tworzymy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PHILOSOPHY ============ -->
+<section id="philosophy">
+  <div class="wrap">
+    <p class="eyebrow">Dlaczego inaczej</p>
+    <h2>Każda firma myśli, że jest <em>wyjątkowa</em></h2>
+    <p class="lede">Problem w tym, że ich strony wyglądają identycznie. Dlatego dodajemy trzeci wymiar — perspektywę z nieba.</p>
+    <div class="grid-3">
+      <div class="card">
+        <span class="num">01</span>
+        <h3>Widzimy więcej</h3>
+        <p>Podczas gdy inni patrzą na Twoją firmę z poziomu ulicy, my widzimy ją z perspektywy, której nikt inny nie ma. Twoja restauracja przestaje być jedną z wielu.</p>
+      </div>
+      <div class="card">
+        <span class="num">02</span>
+        <h3>Czujemy puls</h3>
+        <p>Każdy dron to nie tylko technologia. To przedłużenie naszej pasji. Każda strona to nie tylko kod. To odbicie Twojej wizji.</p>
+      </div>
+      <div class="card">
+        <span class="num">03</span>
+        <h3>Wzlatujemy razem</h3>
+        <p>Nie jesteś dla nas "kolejnym klientem". Jesteś współpilotem w misji pokazania światu, że Twoja firma zasługuje na więcej.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROUTES / PRICING ============ -->
+<section id="routes">
+  <div class="wrap">
+    <p class="eyebrow">Wybierz swoją trasę lotu</p>
+    <h2>Każda firma jest <em>inna</em></h2>
+    <p class="lede">Które z nich najlepiej opisuje Twoją sytuację?</p>
+
+    <div class="routes-grid">
+      <div class="route">
+        <div class="tier-name">Pierwszy Lot</div>
+        <h3>Dla tych, którzy stawiają pierwszy krok</h3>
+        <ul>
+          <li>Jedna lokalizacja, jeden dzień nagrań</li>
+          <li>Film do 90 sek. + responsywna strona</li>
+          <li>Podstawowa optymalizacja SEO</li>
+          <li>Hosting i wsparcie na start</li>
+        </ul>
+        <blockquote>„Twój pierwszy profesjonalny wizerunek online. Solidne fundamenty do dalszego rozwoju.”</blockquote>
+      </div>
+      <div class="route popular">
+        <div class="badge">Najpopularniejszy</div>
+        <div class="tier-name">Wznoszenie</div>
+        <h3>Dla tych, którzy budują przewagę</h3>
+        <ul>
+          <li>Dwie lokalizacje, profesjonalny montaż</li>
+          <li>Film główny do 2 min. + wersja social media</li>
+          <li>Rozbudowana strona</li>
+          <li>Integracja z Google Analytics</li>
+        </ul>
+        <blockquote>„Wszystko, czego potrzebujesz do skutecznej ekspansji online.”</blockquote>
+      </div>
+      <div class="route">
+        <div class="tier-name">Pełen Zasięg</div>
+        <h3>Dla tych, którzy wyznaczają standardy</h3>
+        <ul>
+          <li>Wielolokacyjne nagrania 4K</li>
+          <li>Filmy branded (2-3 min.)</li>
+          <li>Platforma e-commerce / rezerwacje</li>
+          <li>Dedykowany opiekun projektu</li>
+        </ul>
+        <blockquote>„Nie tworzymy stron. Tworzymy platformy do dominacji w Twojej branży.”</blockquote>
+      </div>
+    </div>
+
+    <!-- Configurator -->
+    <p class="eyebrow" style="margin-top:70px">Nie wiesz, którą wybrać?</p>
+    <h2 style="font-size:clamp(1.5rem,3vw,2.1rem)">Odpowiedz na dwa pytania</h2>
+    <div class="config">
+      <div class="config-steps">
+        <div class="config-step">
+          <span class="k">Czego potrzebujesz?</span>
+          <div class="chip-row" id="configNeed">
+            <button class="chip" data-value="strona">Strony</button>
+            <button class="chip" data-value="film">Filmu z drona</button>
+            <button class="chip" data-value="oba">Obu naraz</button>
+          </div>
+        </div>
+        <div class="config-step">
+          <span class="k">Jak duży zasięg?</span>
+          <div class="chip-row" id="configSize">
+            <button class="chip" data-value="small">Zaczynam / testuję</button>
+            <button class="chip" data-value="big">Chcę zdominować rynek</button>
+          </div>
+        </div>
+      </div>
+      <div class="config-result" id="configResult">
+        <div class="r-label">Rekomendowana trasa</div>
+        <h3 class="r-name"></h3>
+        <p class="r-text"></p>
+      </div>
+    </div>
+
+    <div class="routes-cta">
+      <h3>Nie jesteś pewien, która trasa jest dla Ciebie?</h3>
+      <p>Każda współpraca zaczyna się od rozmowy. Opowiesz mi o swojej wizji, ja powiem jak możemy ją zrealizować.</p>
+      <a href="#booking" class="btn btn-gold">Umówmy się na kawę (zdalnie)</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section id="values">
+  <div class="wrap">
+    <p class="eyebrow">Co nas napędza</p>
+    <h2>Wartości <em>w praktyce</em></h2>
+    <div class="values-list">
+      <div class="value-row">
+        <span class="vn">01</span>
+        <div>
+          <h3>Autentyczność nad perfekcją</h3>
+          <p>Nie tworzymy sztucznie wypolerowanych filmów. Pokazujemy prawdziwą osobowość Twojej firmy — z jej charakterem, wartościami i tym, co naprawdę ją wyróżnia.</p>
+        </div>
+      </div>
+      <div class="value-row">
+        <span class="vn">02</span>
+        <div>
+          <h3>Współpraca, nie zlecenie</h3>
+          <p>Nie jesteś dla nas klientem, który "zleca zadanie". Jesteś partnerem w tworzeniu czegoś wyjątkowego. Twoja wiedza o branży + nasza kreatywność = magia.</p>
+        </div>
+      </div>
+      <div class="value-row">
+        <span class="vn">03</span>
+        <div>
+          <h3>Długoterminowe myślenie</h3>
+          <p>Tworzymy rozwiązania, które będą działać za rok, za dwa lata. Nie gonimy za trendami — budujemy solidne fundamenty Twojej obecności online.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flight conditions widget -->
+    <div class="conditions" id="conditions-text">
+      <div class="ico">◐</div>
+      <div class="txt">
+        <b>Warunki lotu dziś: <span class="w-speed">—</span></b>
+        <span class="w-verdict">Sprawdzamy warunki lotu na bieżąco przed każdym nagraniem.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <p class="eyebrow">Odpowiedzi na twoje wątpliwości</p>
+    <h2>Pytania, które <em>słyszymy najczęściej</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q"><span>Czy potrzebuję własnej domeny?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Nie od razu. W pakiecie Pierwszy Lot używamy darmowego hostingu, który pozwala Ci przetestować rozwiązanie. Gdy będziesz gotowy na własną domenę, pomożemy Ci z migracją.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>A jeśli klient wejdzie na telefonie?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Większość osób przegląda internet na telefonie, więc projektujemy mobile-first. Twoja strona będzie wyglądać świetnie na każdym urządzeniu.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Co z pogodą? Dron nie lata w deszczu...</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Śledzimy prognozy z wyprzedzeniem i zawsze mamy plan B. Jeśli pogoda nie dopisze, po prostu przełożymy nagrania. Bez dodatkowych kosztów, bez stresu.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Czy będę mógł sam zmieniać treści?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Zależy od pakietu. W wyższych wariantach dostajesz prosty panel do zarządzania treścią. A jeśli nie, zawsze możesz do nas napisać — małe zmiany robimy bezpłatnie.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Jak wyglądają płatności?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Połowę płacisz na start, resztę po odbiorze gotowego projektu. Przelew, faktura VAT — wszystko jak należy.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q"><span>Ile to wszystko trwa?</span><span class="plus">+</span></button>
+        <div class="faq-a"><p>Od nagrania dronem do gotowej strony z filmem? Maksymalnie 3 tygodnie, zazwyczaj wyrabiamy się w 12–16 dni.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING ============ -->
+<section id="booking">
+  <div class="wrap">
+    <p class="eyebrow">Rezerwacja</p>
+    <h2>Umówmy się na <em>godzinę</em></h2>
+    <p class="lede">Nieformalny czat przy wirtualnej kawie, podczas której poznamy Twoją firmę i ustalimy, jak możemy pomóc Twojej marce wzlecieć.</p>
+
+    <div class="booking-grid">
+      <div class="panel">
+        <h3>Wybierz termin</h3>
+        <div class="calendar-widget">
+          <div class="calendar-header">
+            <button id="prevMonth" aria-label="Poprzedni miesiąc">‹</button>
+            <span id="monthYear"></span>
+            <button id="nextMonth" aria-label="Następny miesiąc">›</button>
+          </div>
+          <div class="grid-cols-7">
+            <div>Pon</div><div>Wt</div><div>Śr</div><div>Czw</div><div>Pt</div><div>Sob</div><div>Nie</div>
+          </div>
+          <div class="grid-cols-7"><!-- generowane przez js/booking-system.js --></div>
+        </div>
+        <div id="time-slots-container">
+          <p style="color:var(--text-faint);font-size:13px;text-align:center;padding:16px 0">Wybierz datę w kalendarzu powyżej</p>
+        </div>
+        <div class="direct-contact">
+          <h4>Lub skontaktuj się bezpośrednio</h4>
+          <div class="row">
+            <a href="tel:+48667849367">Zadzwoń</a>
+            <a href="mailto:dron.marketingweb@gmail.com">Napisz</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Formularz kontaktowy</h3>
+        <form class="form" id="bookingForm">
+          <div class="field"><label>Imię i nazwisko <span class="req">*</span></label>
+            <input type="text" name="name" required placeholder="Wprowadź swoje imię i nazwisko"></div>
+          <div class="field"><label>Email <span class="req">*</span></label>
+            <input type="email" name="email" required placeholder="twoj@email.pl"></div>
+          <div class="field"><label>Telefon</label>
+            <input type="tel" name="phone" placeholder="+48 123 456 789"></div>
+          <div class="field"><label>Nazwa firmy <span class="req">*</span></label>
+            <input type="text" name="company" required placeholder="Nazwa Twojej firmy"></div>
+          <div class="field"><label>Branża</label>
+            <select name="industry">
+              <option value="">Wybierz branżę</option>
+              <option value="restauracja">Restauracja</option>
+              <option value="hotel">Hotel/Turystyka</option>
+              <option value="budowlanka">Budownictwo</option>
+              <option value="medycyna">Medycyna/Zdrowie</option>
+              <option value="automotive">Motoryzacja</option>
+              <option value="handel">Handel</option>
+              <option value="uslugi">Usługi</option>
+              <option value="inne">Inne</option>
+            </select></div>
+          <div class="field"><label>Krótki opis projektu</label>
+            <textarea name="description" rows="3" placeholder="Opisz krótko czego potrzebujesz"></textarea></div>
+          <div class="field"><label>Budżet</label>
+            <select name="budget">
+              <option value="">Wybierz zakres</option>
+              <option value="do-2k">do 2k zł</option>
+              <option value="2-3k">2-3k zł</option>
+              <option value="3k+">3k+ zł</option>
+              <option value="do-ustalenia">do ustalenia</option>
+            </select></div>
+          <div class="field checkbox">
+            <input type="checkbox" name="privacy" required id="privacyCheck">
+            <span>Zgoda na przetwarzanie danych osobowych <span class="req">*</span></span></div>
+          <button type="submit" class="submit-btn">Rezerwuję termin</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<!-- TODO: adres poniżej to Kłobuck (zgodnie z obecnie opublikowaną stroną), a SEO/hero celują w Trójmiasto — do potwierdzenia z klientem, patrz brief. -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:14px"><img src="images/skyview-logo.png" alt=""> SkyView Digital</div>
+        <p style="font-size:13.5px;color:var(--text-faint);max-width:32ch">Kompleksowe usługi digital — filmy z drona i nowoczesne strony internetowe w jednym pakiecie.</p>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li><a href="tel:+48667849367">+48 667 849 367</a></li>
+          <li><a href="mailto:dron.marketingweb@gmail.com">dron.marketingweb@gmail.com</a></li>
+          <li>Kłobuck, Polska</li>
+          <li>Pn–Pt: 4:00–6:00 i 18:00–22:00<br>Sob–Nd: 8:00–21:00</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Usługi</h4>
+        <ul>
+          <li>Strony internetowe</li>
+          <li>Filmy dronowe</li>
+          <li>Hosting i domeny</li>
+          <li>Konsultacje marketingowe</li>
+          <li>Grafika na social media</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Social media</h4>
+        <ul>
+          <li><a href="https://www.instagram.com/skyview_digital" target="_blank" rel="noopener">Instagram — behind the scenes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">© 2026 SkyView Digital. Wszystkie prawa zastrzeżone.</div>
+  </div>
+</footer>
+
+<!-- ============ VIDEO MODAL ============ -->
+<div class="modal" id="videoModal">
+  <div class="modal-box">
+    <button class="close" id="closeVideoModal">✕</button>
+    <video id="modalVideo" style="display:none;width:100%;border-radius:3px" controls>
+      <source src="" type="video/mp4">
+    </video>
+    <div id="modalPlaceholder">
+      <p class="eyebrow" style="justify-content:center">Wkrótce</p>
+      <h3>Tu pojawi się prawdziwy materiał z realizacji</h3>
+      <p>Ta strona jest w budowie — miejsce na wideo czeka na Twój prawdziwy materiał zamiast placeholdera.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="js/firebase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="js/booking-system.js"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
