@@ -36,27 +36,27 @@
     var puffs = [];
     var lastSpawn = 0;
     var big = false;
+    var curX = -100, curY = -100, haveMouse = false;
 
     window.addEventListener('mousemove', function (e) {
+      curX = e.clientX; curY = e.clientY; haveMouse = true;
       var now = performance.now();
-      if (now - lastSpawn > 28) {
+      if (now - lastSpawn > 55) {
         lastSpawn = now;
-        var n = 1 + Math.round(Math.random());
-        for (var i = 0; i < n; i++) {
-          puffs.push({
-            x: e.clientX + (Math.random() - 0.5) * 6,
-            y: e.clientY + (Math.random() - 0.5) * 6,
-            vx: (Math.random() - 0.5) * 0.35,
-            vy: -0.25 - Math.random() * 0.35,
-            r: (big ? 10 : 6) + Math.random() * 8,
-            born: now,
-            life: 850 + Math.random() * 500,
-            hue: Math.random() < 0.5 ? 'gold' : 'smoke'
-          });
-        }
-        if (puffs.length > 140) puffs.splice(0, puffs.length - 140);
+        puffs.push({
+          x: e.clientX + (Math.random() - 0.5) * 4,
+          y: e.clientY + (Math.random() - 0.5) * 4,
+          driftX: (Math.random() - 0.5) * 22,
+          riseY: 22 + Math.random() * 20,
+          r: (big ? 9 : 5.5) + Math.random() * 6,
+          born: now,
+          life: 1300 + Math.random() * 700,
+          hue: Math.random() < 0.45 ? 'gold' : 'smoke'
+        });
+        if (puffs.length > 90) puffs.splice(0, puffs.length - 90);
       }
     });
+    window.addEventListener('mouseleave', function () { haveMouse = false; });
 
     document.querySelectorAll('a, button, .chip, .calendar-day, .time-slot').forEach(function (el) {
       el.addEventListener('mouseenter', function () { big = true; });
@@ -65,26 +65,44 @@
 
     (function loop(now) {
       tctx.clearRect(0, 0, tW, tH);
+
       for (var i = puffs.length - 1; i >= 0; i--) {
         var p = puffs[i];
         var age = now - p.born;
         if (age > p.life) { puffs.splice(i, 1); continue; }
         var t = age / p.life;
-        var x = p.x + p.vx * age;
-        var y = p.y + p.vy * age;
-        var r = p.r * (0.6 + t * 0.9);
-        var alpha = (1 - t) * (1 - t) * 0.4;
+        var ease = t * t * (3 - 2 * t); // smoothstep — lingers, then eases into the rise
+        var x = p.x + p.driftX * ease;
+        var y = p.y - p.riseY * ease;
+        var r = p.r * (0.7 + t * 0.8);
+        var alpha = (1 - t) * (1 - t) * 0.38;
         var g = tctx.createRadialGradient(x, y, 0, x, y, r);
         if (p.hue === 'gold') {
           g.addColorStop(0, 'rgba(255,212,138,' + alpha + ')');
           g.addColorStop(1, 'rgba(242,178,90,0)');
         } else {
-          g.addColorStop(0, 'rgba(180,175,190,' + (alpha * 0.7) + ')');
-          g.addColorStop(1, 'rgba(120,115,130,0)');
+          g.addColorStop(0, 'rgba(198,190,208,' + (alpha * 0.7) + ')');
+          g.addColorStop(1, 'rgba(140,132,152,0)');
         }
         tctx.fillStyle = g;
         tctx.beginPath(); tctx.arc(x, y, r, 0, Math.PI * 2); tctx.fill();
       }
+
+      if (haveMouse) {
+        var cr = big ? 9 : 6;
+        var halo = tctx.createRadialGradient(curX, curY, 0, curX, curY, cr * 2.6);
+        halo.addColorStop(0, 'rgba(255,212,138,0.35)');
+        halo.addColorStop(1, 'rgba(255,212,138,0)');
+        tctx.fillStyle = halo;
+        tctx.beginPath(); tctx.arc(curX, curY, cr * 2.6, 0, Math.PI * 2); tctx.fill();
+
+        tctx.fillStyle = '#fff2d9';
+        tctx.beginPath(); tctx.arc(curX, curY, cr * 0.32, 0, Math.PI * 2); tctx.fill();
+        tctx.strokeStyle = 'rgba(255,212,138,0.85)';
+        tctx.lineWidth = 1;
+        tctx.beginPath(); tctx.arc(curX, curY, cr, 0, Math.PI * 2); tctx.stroke();
+      }
+
       requestAnimationFrame(loop);
     })(performance.now());
   }
@@ -146,8 +164,8 @@
 
       ctx.clearRect(0, 0, W, H);
       var sky = ctx.createLinearGradient(0, 0, 0, H * horizonY);
-      sky.addColorStop(0, '#0a0716'); sky.addColorStop(0.45, '#1c1030');
-      sky.addColorStop(0.78, '#4a1f3c'); sky.addColorStop(1, '#f2b25a');
+      sky.addColorStop(0, '#2a2438'); sky.addColorStop(0.45, '#3d2f4f');
+      sky.addColorStop(0.78, '#6b3f5c'); sky.addColorStop(1, '#f2b25a');
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H * horizonY + 2);
 
       var sunX = W * (0.5 + (targetX - 0.5) * 0.5);
@@ -161,8 +179,8 @@
       sunCore.addColorStop(0, '#fff2d9'); sunCore.addColorStop(1, 'rgba(255,212,138,0)');
       ctx.fillStyle = sunCore; ctx.beginPath(); ctx.arc(sunX, sunY, H * 0.09, 0, Math.PI * 2); ctx.fill();
 
-      drawRidge(farRidge, (targetX - 0.5) * -18, (targetY - 0.5) * -6, '#170e29');
-      drawRidge(nearRidge, (targetX - 0.5) * -34, (targetY - 0.5) * -10, '#05070b');
+      drawRidge(farRidge, (targetX - 0.5) * -18, (targetY - 0.5) * -6, '#41344f');
+      drawRidge(nearRidge, (targetX - 0.5) * -34, (targetY - 0.5) * -10, '#241f31');
 
       for (var i = 0; i < lights.length; i++) {
         var L = lights[i]; var lx = L.x * W + (targetX - 0.5) * -34;
@@ -173,7 +191,7 @@
 
       var waterY = H * horizonY;
       var water = ctx.createLinearGradient(0, waterY, 0, H);
-      water.addColorStop(0, '#150a1e'); water.addColorStop(1, '#05070b');
+      water.addColorStop(0, '#332a42'); water.addColorStop(1, '#1c1926');
       ctx.fillStyle = water; ctx.fillRect(0, waterY, W, H - waterY);
 
       ctx.save(); ctx.globalAlpha = 0.5;
