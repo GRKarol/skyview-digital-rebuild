@@ -137,14 +137,50 @@
       return pts;
     }
 
-    var horizonY = 0.62, farRidge, nearRidge, lights = [];
+    var horizonY = 0.62, farRidge, nearRidge, lights = [], stars = [];
     function buildRidges() {
       var r1 = seeded(11), r2 = seeded(42);
       farRidge = ridge(r1, 22, H * horizonY - 10, H * 0.05);
       nearRidge = ridge(r2, 16, H * horizonY + 6, H * 0.08);
       lights = [];
       for (var i = 0; i < 40; i++) lights.push({ x: Math.random(), y: H * horizonY + Math.random() * H * 0.05, blink: Math.random() * Math.PI * 2 });
+      if (!stars.length) {
+        var rs = seeded(77);
+        for (var s = 0; s < 70; s++) stars.push({ x: rs(), y: rs() * 0.8, r: 0.6 + rs() * 1.2, blink: rs() * Math.PI * 2 });
+      }
     }
+
+    /* ---- real time of day: sun by day, moon by night ---- */
+    function hexToRgb(hex) {
+      var n = parseInt(hex.slice(1), 16);
+      return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+    }
+    function lerpColor(a, b, t) {
+      var ca = hexToRgb(a), cb = hexToRgb(b);
+      var r = Math.round(ca[0] + (cb[0] - ca[0]) * t);
+      var g = Math.round(ca[1] + (cb[1] - ca[1]) * t);
+      var bch = Math.round(ca[2] + (cb[2] - ca[2]) * t);
+      return 'rgb(' + r + ',' + g + ',' + bch + ')';
+    }
+    function getSunState() {
+      var now = new Date();
+      var hour = now.getHours() + now.getMinutes() / 60;
+      var riseH = 5.5, setH = 20.5;
+      var isNight = hour < riseH || hour >= setH;
+      var frac, elevation;
+      if (isNight) {
+        var nightLen = 24 - (setH - riseH);
+        var nightPos = hour >= setH ? hour - setH : hour + (24 - setH);
+        frac = nightPos / nightLen;
+        elevation = Math.sin(Math.PI * Math.min(1, Math.max(0, frac)));
+      } else {
+        frac = (hour - riseH) / (setH - riseH);
+        elevation = Math.sin(Math.PI * Math.min(1, Math.max(0, frac)));
+      }
+      return { isNight: isNight, frac: frac, elevation: elevation };
+    }
+    var sunState = getSunState();
+    setInterval(function () { sunState = getSunState(); }, 60000);
 
     function drawRidge(pts, offsetX, offsetY, color) {
       ctx.beginPath(); ctx.moveTo(pts[0][0] + offsetX, H + 10);
@@ -163,45 +199,89 @@
       else { targetX = 0.5; targetY = 0.5; }
 
       ctx.clearRect(0, 0, W, H);
+
+      var isNight = sunState.isNight;
+      var elevation = sunState.elevation; // 0 = at horizon, 1 = zenith
+      var dayLift = isNight ? 0 : elevation;
+
       var sky = ctx.createLinearGradient(0, 0, 0, H * horizonY);
-      sky.addColorStop(0, '#2a2438'); sky.addColorStop(0.45, '#3d2f4f');
-      sky.addColorStop(0.78, '#6b3f5c'); sky.addColorStop(1, '#f2b25a');
+      if (isNight) {
+        sky.addColorStop(0, lerpColor('#0c0d18', '#141428', elevation));
+        sky.addColorStop(0.45, lerpColor('#171a2c', '#20233d', elevation));
+        sky.addColorStop(0.78, '#2c2a44');
+        sky.addColorStop(1, '#3d3a54');
+      } else {
+        sky.addColorStop(0, lerpColor('#2a2438', '#4d6e9c', dayLift));
+        sky.addColorStop(0.45, lerpColor('#3d2f4f', '#7fa4c6', dayLift));
+        sky.addColorStop(0.78, lerpColor('#6b3f5c', '#e3ab7a', dayLift));
+        sky.addColorStop(1, lerpColor('#f2b25a', '#ffd48a', dayLift));
+      }
       ctx.fillStyle = sky; ctx.fillRect(0, 0, W, H * horizonY + 2);
 
-      var sunX = W * (0.5 + (targetX - 0.5) * 0.5);
-      var sunY = H * horizonY - H * 0.02 + (targetY - 0.5) * H * 0.03;
-      var glowR = W * 0.30;
-      var glow = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, glowR);
-      glow.addColorStop(0, 'rgba(255,212,138,0.85)'); glow.addColorStop(0.35, 'rgba(242,178,90,0.35)'); glow.addColorStop(1, 'rgba(242,178,90,0)');
-      ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(sunX, sunY, glowR, 0, Math.PI * 2); ctx.fill();
+      if (isNight) {
+        for (var s = 0; s < stars.length; s++) {
+          var st = stars[s];
+          var sb = 0.4 + 0.6 * Math.sin(t * 1.1 + st.blink);
+          ctx.fillStyle = 'rgba(240,238,255,' + (0.25 + sb * 0.55) + ')';
+          ctx.beginPath(); ctx.arc(st.x * W + (targetX - 0.5) * -10, st.y * H, st.r, 0, Math.PI * 2); ctx.fill();
+        }
+      }
 
-      var sunCore = ctx.createRadialGradient(sunX, sunY, 0, sunX, sunY, H * 0.09);
-      sunCore.addColorStop(0, '#fff2d9'); sunCore.addColorStop(1, 'rgba(255,212,138,0)');
-      ctx.fillStyle = sunCore; ctx.beginPath(); ctx.arc(sunX, sunY, H * 0.09, 0, Math.PI * 2); ctx.fill();
+      var maxRise = H * 0.4;
+      var orbX = W * (0.18 + sunState.frac * 0.64) + (targetX - 0.5) * W * 0.08;
+      var orbY = H * horizonY - elevation * maxRise + (targetY - 0.5) * H * 0.03;
+      var glowR = W * (isNight ? 0.16 : 0.30);
+      var orbColor = isNight ? '224,222,240' : '255,212,138';
+      var glow = ctx.createRadialGradient(orbX, orbY, 0, orbX, orbY, glowR);
+      glow.addColorStop(0, 'rgba(' + orbColor + ',' + (isNight ? 0.5 : 0.85) + ')');
+      glow.addColorStop(0.35, 'rgba(' + orbColor + ',' + (isNight ? 0.18 : 0.35) + ')');
+      glow.addColorStop(1, 'rgba(' + orbColor + ',0)');
+      ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(orbX, orbY, glowR, 0, Math.PI * 2); ctx.fill();
 
-      drawRidge(farRidge, (targetX - 0.5) * -18, (targetY - 0.5) * -6, '#41344f');
-      drawRidge(nearRidge, (targetX - 0.5) * -34, (targetY - 0.5) * -10, '#241f31');
+      var orbR = H * (isNight ? 0.05 : 0.09);
+      var orbCore = ctx.createRadialGradient(orbX, orbY, 0, orbX, orbY, orbR);
+      orbCore.addColorStop(0, isNight ? '#f4f2ff' : '#fff2d9');
+      orbCore.addColorStop(1, 'rgba(' + orbColor + ',0)');
+      ctx.fillStyle = orbCore; ctx.beginPath(); ctx.arc(orbX, orbY, orbR, 0, Math.PI * 2); ctx.fill();
 
-      for (var i = 0; i < lights.length; i++) {
-        var L = lights[i]; var lx = L.x * W + (targetX - 0.5) * -34;
-        var b = 0.5 + 0.5 * Math.sin(t * 1.4 + L.blink);
-        ctx.fillStyle = 'rgba(255,212,138,' + (0.15 + b * 0.35) + ')';
-        ctx.fillRect(lx, L.y, 1.5, 1.5);
+      drawRidge(farRidge, (targetX - 0.5) * -18, (targetY - 0.5) * -6, isNight ? '#242438' : lerpColor('#41344f', '#5c6f8f', dayLift));
+      drawRidge(nearRidge, (targetX - 0.5) * -34, (targetY - 0.5) * -10, isNight ? '#15151f' : '#241f31');
+
+      if (!isNight) {
+        for (var i = 0; i < lights.length; i++) {
+          var L = lights[i]; var lx = L.x * W + (targetX - 0.5) * -34;
+          var b = 0.5 + 0.5 * Math.sin(t * 1.4 + L.blink);
+          ctx.fillStyle = 'rgba(255,212,138,' + (0.15 + b * 0.35) + ')';
+          ctx.fillRect(lx, L.y, 1.5, 1.5);
+        }
       }
 
       var waterY = H * horizonY;
       var water = ctx.createLinearGradient(0, waterY, 0, H);
-      water.addColorStop(0, '#332a42'); water.addColorStop(1, '#1c1926');
+      water.addColorStop(0, isNight ? '#1c2233' : lerpColor('#2d3f52', '#3a5872', dayLift));
+      water.addColorStop(0.5, isNight ? '#141826' : '#243347');
+      water.addColorStop(1, '#1c1926');
       ctx.fillStyle = water; ctx.fillRect(0, waterY, W, H - waterY);
 
-      ctx.save(); ctx.globalAlpha = 0.5;
+      // horizontal water ripple lines so the surface reads as water, not a flat panel
+      ctx.save(); ctx.globalAlpha = 0.22;
+      ctx.strokeStyle = isNight ? 'rgba(180,190,220,0.5)' : 'rgba(255,224,180,0.5)';
+      ctx.lineWidth = 1;
+      for (var rl = 0; rl < 14; rl++) {
+        var rly = waterY + 10 + rl * ((H - waterY) / 14);
+        var wobble = Math.sin(t * 0.5 + rl * 0.9) * 10;
+        ctx.beginPath(); ctx.moveTo(0, rly); ctx.lineTo(W * 0.3 + wobble, rly + 2); ctx.lineTo(W * 0.7 - wobble, rly - 1); ctx.lineTo(W, rly + 1); ctx.stroke();
+      }
+      ctx.restore();
+
+      ctx.save(); ctx.globalAlpha = 0.55;
       for (var r = 0; r < 26; r++) {
         var ry = waterY + 6 + r * ((H - waterY) / 26);
         var jitter = Math.sin(t * 0.6 + r * 0.7) * 8 * (r / 26);
         var reflW = Math.max(0, glowR * 0.9 * (1 - r / 30));
-        var rg = ctx.createLinearGradient(sunX - reflW, ry, sunX + reflW, ry);
-        rg.addColorStop(0, 'rgba(242,178,90,0)'); rg.addColorStop(0.5, 'rgba(255,212,138,' + (0.22 - r * 0.006) + ')'); rg.addColorStop(1, 'rgba(242,178,90,0)');
-        ctx.fillStyle = rg; ctx.fillRect(sunX - reflW + jitter, ry, reflW * 2, 1.4);
+        var rg = ctx.createLinearGradient(orbX - reflW, ry, orbX + reflW, ry);
+        rg.addColorStop(0, 'rgba(' + orbColor + ',0)'); rg.addColorStop(0.5, 'rgba(' + orbColor + ',' + (0.28 - r * 0.007) + ')'); rg.addColorStop(1, 'rgba(' + orbColor + ',0)');
+        ctx.fillStyle = rg; ctx.fillRect(orbX - reflW + jitter, ry, reflW * 2, 1.6);
       }
       ctx.restore();
       requestAnimationFrame(frame);
