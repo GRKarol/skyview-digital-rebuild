@@ -12,7 +12,10 @@
 </head>
 <body>
 
-<div class="ring" id="ring"></div>
+<canvas id="trail"></canvas>
+<div class="ember-field" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
 
 <nav class="nav">
   <div class="wrap">
@@ -67,7 +70,7 @@
   <div class="wrap">
     <p class="eyebrow">Efekt wow w 60 sekund</p>
     <h2>Odkryj <em>proces</em></h2>
-    <div class="wow-card" style="margin-top:40px">
+    <div class="wow-card reveal" style="margin-top:40px">
       <div class="wow-media wow-placeholder">
         <div class="wow-overlay">
           <div>
@@ -81,6 +84,39 @@
   </div>
 </section>
 
+<!-- ============ COMPARE SLIDER ============ -->
+<section id="compare">
+  <div class="wrap">
+    <p class="eyebrow reveal">Zobacz różnicę</p>
+    <h2 class="reveal">Przeciągnij i <em>porównaj</em></h2>
+    <p class="lede reveal">Poglądowo — tak wygląda różnica między typową stroną firmową a taką, którą robimy. Przeciągnij suwak.</p>
+    <div class="compare reveal" id="compareSlider">
+      <div class="cmp-panel cmp-before">
+        <span class="cmp-tag">Zwykła strona</span>
+        <div class="cmp-mock">
+          <div class="mb-line w60"></div>
+          <div class="mb-line w40"></div>
+          <div class="mb-block"></div>
+          <div class="mb-line w80"></div>
+          <div class="mb-line w50"></div>
+          <div class="mb-btn"></div>
+        </div>
+      </div>
+      <div class="cmp-panel cmp-after">
+        <span class="cmp-tag">Twoja nowa strona</span>
+        <div class="cmp-mock cmp-mock-gold">
+          <div class="ma-glow"></div>
+          <div class="ma-line w60"></div>
+          <div class="ma-line w30"></div>
+          <div class="ma-hero"></div>
+          <div class="ma-btn">Umów rozmowę</div>
+        </div>
+      </div>
+      <div class="cmp-handle" id="compareHandle"><span>↔</span></div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ PHILOSOPHY ============ -->
 <section id="philosophy">
   <div class="wrap">
@@ -88,17 +124,17 @@
     <h2>Każda firma myśli, że jest <em>wyjątkowa</em></h2>
     <p class="lede">Problem w tym, że ich strony wyglądają identycznie. Dlatego dodajemy trzeci wymiar — perspektywę z nieba.</p>
     <div class="grid-3">
-      <div class="card">
+      <div class="card reveal">
         <span class="num">01</span>
         <h3>Widzimy więcej</h3>
         <p>Podczas gdy inni patrzą na Twoją firmę z poziomu ulicy, my widzimy ją z perspektywy, której nikt inny nie ma. Twoja restauracja przestaje być jedną z wielu.</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <span class="num">02</span>
         <h3>Czujemy puls</h3>
         <p>Każdy dron to nie tylko technologia. To przedłużenie naszej pasji. Każda strona to nie tylko kod. To odbicie Twojej wizji.</p>
       </div>
-      <div class="card">
+      <div class="card reveal">
         <span class="num">03</span>
         <h3>Wzlatujemy razem</h3>
         <p>Nie jesteś dla nas "kolejnym klientem". Jesteś współpilotem w misji pokazania światu, że Twoja firma zasługuje na więcej.</p>
@@ -115,7 +151,7 @@
     <p class="lede">Które z nich najlepiej opisuje Twoją sytuację?</p>
 
     <div class="routes-grid">
-      <div class="route">
+      <div class="route reveal">
         <div class="tier-name">Pierwszy Lot</div>
         <h3>Dla tych, którzy stawiają pierwszy krok</h3>
         <ul>
@@ -126,7 +162,7 @@
         </ul>
         <blockquote>„Twój pierwszy profesjonalny wizerunek online. Solidne fundamenty do dalszego rozwoju.”</blockquote>
       </div>
-      <div class="route popular">
+      <div class="route popular reveal">
         <div class="badge">Najpopularniejszy</div>
         <div class="tier-name">Wznoszenie</div>
         <h3>Dla tych, którzy budują przewagę</h3>
@@ -138,7 +174,7 @@
         </ul>
         <blockquote>„Wszystko, czego potrzebujesz do skutecznej ekspansji online.”</blockquote>
       </div>
-      <div class="route">
+      <div class="route reveal">
         <div class="tier-name">Pełen Zasięg</div>
         <h3>Dla tych, którzy wyznaczają standardy</h3>
         <ul>
@@ -154,7 +190,7 @@
     <!-- Configurator -->
     <p class="eyebrow" style="margin-top:70px">Nie wiesz, którą wybrać?</p>
     <h2 style="font-size:clamp(1.5rem,3vw,2.1rem)">Odpowiedz na dwa pytania</h2>
-    <div class="config">
+    <div class="config reveal">
       <div class="config-steps">
         <div class="config-step">
           <span class="k">Czego potrzebujesz?</span>
@@ -193,21 +229,21 @@
     <p class="eyebrow">Co nas napędza</p>
     <h2>Wartości <em>w praktyce</em></h2>
     <div class="values-list">
-      <div class="value-row">
+      <div class="value-row reveal">
         <span class="vn">01</span>
         <div>
           <h3>Autentyczność nad perfekcją</h3>
           <p>Nie tworzymy sztucznie wypolerowanych filmów. Pokazujemy prawdziwą osobowość Twojej firmy — z jej charakterem, wartościami i tym, co naprawdę ją wyróżnia.</p>
         </div>
       </div>
-      <div class="value-row">
+      <div class="value-row reveal">
         <span class="vn">02</span>
         <div>
           <h3>Współpraca, nie zlecenie</h3>
           <p>Nie jesteś dla nas klientem, który "zleca zadanie". Jesteś partnerem w tworzeniu czegoś wyjątkowego. Twoja wiedza o branży + nasza kreatywność = magia.</p>
         </div>
       </div>
-      <div class="value-row">
+      <div class="value-row reveal">
         <span class="vn">03</span>
         <div>
           <h3>Długoterminowe myślenie</h3>
@@ -217,7 +253,7 @@
     </div>
 
     <!-- Flight conditions widget -->
-    <div class="conditions" id="conditions-text">
+    <div class="conditions reveal" id="conditions-text">
       <div class="ico">◐</div>
       <div class="txt">
         <b>Warunki lotu dziś: <span class="w-speed">—</span></b>
@@ -269,7 +305,7 @@
     <p class="lede">Nieformalny czat przy wirtualnej kawie, podczas której poznamy Twoją firmę i ustalimy, jak możemy pomóc Twojej marce wzlecieć.</p>
 
     <div class="booking-grid">
-      <div class="panel">
+      <div class="panel reveal">
         <h3>Wybierz termin</h3>
         <div class="calendar-widget">
           <div class="calendar-header">
@@ -294,7 +330,7 @@
         </div>
       </div>
 
-      <div class="panel">
+      <div class="panel reveal">
         <h3>Formularz kontaktowy</h3>
         <form class="form" id="bookingForm">
           <div class="field"><label>Imię i nazwisko <span class="req">*</span></label>
