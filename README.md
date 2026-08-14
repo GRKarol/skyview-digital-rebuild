@@ -21,7 +21,7 @@ Zbudowane i działające:
   kinetyczny nagłówek, licznik wysokości, scrollowany pasek usług.
 - Sekcje: Efekt WOW, Filozofia, Trasy lotu (cennik, przemianowane z
   Essentials/Growth/Enterprise), konfigurator usług, widget realnej pogody
-  (Open-Meteo, Trójmiasto), Wartości, FAQ (jedna wersja, bez duplikatu),
+  (Open-Meteo, Kłobuck), Wartości, FAQ (jedna wersja, bez duplikatu),
   Rezerwacja, Stopka.
 - System rezerwacji Firebase (`js/booking-system.js`, `js/firebase-config.js`)
   przeniesiony 1:1 z oryginału — logika bez zmian, tylko nowy wygląd.
@@ -34,7 +34,8 @@ Zbudowane i działające:
 Patrz sekcja „Do potwierdzenia z Tobą" w briefie — najważniejsze:
 
 1. **Adres i zasięg** — stopka ma „Kłobuck, Polska" (zgodnie z tym, co było
-   opublikowane), a hero/SEO celują w Trójmiasto. Do ustalenia.
+   opublikowane). Wszystkie wzmianki o Trójmieście usunięte na prośbę
+   klienta — jeśli firma działa w konkretnym regionie, warto to dopisać.
 2. **Prawdziwy materiał wideo/zdjęciowy** — sekcja „Efekt WOW" ma świadomy,
    podpisany placeholder zamiast fałszywego demo. Podmień na realne ujęcia.
 3. **Funkcje z briefu, których jeszcze nie ma**: scroll-driven „wznoszenie"

@@ -221,8 +221,8 @@
   /* ---------- flight conditions (real weather, Open-Meteo, no key needed) ---------- */
   var condEl = document.getElementById('conditions-text');
   if (condEl) {
-    // TODO: współrzędne do potwierdzenia — obecnie Gdańsk (Trójmiasto), patrz brief / pytania otwarte
-    var LAT = 54.352, LON = 18.6466;
+    // TODO: współrzędne do potwierdzenia — obecnie Kłobuck (jedyny potwierdzony adres), patrz brief / pytania otwarte
+    var LAT = 50.9214, LON = 18.9508;
     fetch('https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LON + '&current=wind_speed_10m,weather_code&wind_speed_unit=kmh')
       .then(function (r) { return r.json(); })
       .then(function (data) {
@@ -230,7 +230,7 @@
         var good = wind < 25;
         condEl.querySelector('.w-speed').textContent = wind + ' km/h';
         condEl.querySelector('.w-verdict').textContent = good
-          ? 'Dziś dobre warunki do lotu w Trójmieście.'
+          ? 'Dziś dobre warunki do lotu.'
           : 'Dziś za silny wiatr na spokojny lot — w razie potrzeby przekładamy nagranie, bez dodatkowych kosztów.';
       })
       .catch(function () {
