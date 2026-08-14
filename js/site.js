@@ -444,5 +444,51 @@
     compare.addEventListener('pointermove', function (e) { if (dragging) setSplit(e.clientX); });
     compare.addEventListener('pointerup', function () { dragging = false; });
     compare.addEventListener('pointercancel', function () { dragging = false; });
+
+    /* mini living preview inside the "after" panel */
+    var cmpCanvas = document.getElementById('cmpCanvas');
+    if (cmpCanvas) {
+      var cctx = cmpCanvas.getContext('2d');
+      var cW, cH, cDPR;
+      function resizeCmp() {
+        cDPR = Math.min(window.devicePixelRatio || 1, 2);
+        cW = compare.clientWidth; cH = compare.clientHeight;
+        cmpCanvas.width = cW * cDPR; cmpCanvas.height = cH * cDPR;
+        cmpCanvas.style.width = cW + 'px'; cmpCanvas.style.height = cH + 'px';
+        cctx.setTransform(cDPR, 0, 0, cDPR, 0, 0);
+      }
+      resizeCmp();
+      window.addEventListener('resize', resizeCmp);
+
+      var sparks = [];
+      for (var sp = 0; sp < 16; sp++) sparks.push({ x: Math.random(), y: Math.random(), phase: Math.random() * Math.PI * 2, speed: 0.4 + Math.random() * 0.6 });
+      var c0 = performance.now();
+
+      (function cmpFrame(now) {
+        var ct = (now - c0) / 1000;
+        cctx.clearRect(0, 0, cW, cH);
+        var sky = cctx.createLinearGradient(0, 0, 0, cH);
+        sky.addColorStop(0, '#241f31'); sky.addColorStop(0.55, '#4a2f4a'); sky.addColorStop(1, '#c9793f');
+        cctx.fillStyle = sky; cctx.fillRect(0, 0, cW, cH);
+
+        var sx = cW * 0.62, sy = cH * (reduced ? 0.42 : 0.42 + Math.sin(ct * 0.5) * 0.03);
+        var pulse = reduced ? 1 : 1 + Math.sin(ct * 1.6) * 0.08;
+        var gr = cH * 0.5 * pulse;
+        var glow = cctx.createRadialGradient(sx, sy, 0, sx, sy, gr);
+        glow.addColorStop(0, 'rgba(255,212,138,0.9)'); glow.addColorStop(0.4, 'rgba(242,178,90,0.4)'); glow.addColorStop(1, 'rgba(242,178,90,0)');
+        cctx.fillStyle = glow; cctx.beginPath(); cctx.arc(sx, sy, gr, 0, Math.PI * 2); cctx.fill();
+        cctx.fillStyle = '#fff6e0'; cctx.beginPath(); cctx.arc(sx, sy, cH * 0.09, 0, Math.PI * 2); cctx.fill();
+
+        if (!reduced) {
+          for (var i = 0; i < sparks.length; i++) {
+            var sk = sparks[i];
+            var b = 0.3 + 0.7 * Math.abs(Math.sin(ct * sk.speed + sk.phase));
+            cctx.fillStyle = 'rgba(255,224,180,' + b + ')';
+            cctx.beginPath(); cctx.arc(sk.x * cW, sk.y * cH * 0.7, 1.4, 0, Math.PI * 2); cctx.fill();
+          }
+        }
+        requestAnimationFrame(cmpFrame);
+      })(performance.now());
+    }
   }
 })();
