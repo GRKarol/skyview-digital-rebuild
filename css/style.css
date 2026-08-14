@@ -151,6 +151,28 @@ canvas#sky { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0
     linear-gradient(to top, rgba(6,5,10,0.55) 0%, transparent 42%);
 }
 .hero .wrap { position: relative; z-index: 1; padding-top: 90px; }
+
+/* text flips dark when the real-time sky is bright (midday); stays light for dusk/night */
+html.sky-bright .hero .eyebrow { color: #6b4a1e; }
+html.sky-bright .hero .eyebrow::before { background: #6b4a1e; }
+html.sky-bright .hero h1 .line:nth-child(1) span { color: #201725; }
+html.sky-bright .hero h1 .line:nth-child(2) span { color: #7a4f14; }
+html.sky-bright .hero .sub { color: #34272f; }
+html.sky-bright .hero .btn-ghost { border-color: rgba(32,23,37,0.4); color: #201725; }
+html.sky-bright .hero .alt { color: #6b4a1e; }
+html.sky-bright .hero .alt b { color: #201725; }
+html.sky-bright .hero .scrollcue { color: #34272f; }
+html.sky-bright .hero .scrollcue .bar { background: linear-gradient(#6b4a1e, transparent); }
+html.sky-bright .hero-scrim {
+  background:
+    linear-gradient(105deg, rgba(255,251,240,0.5) 0%, rgba(255,251,240,0.32) 30%, rgba(255,251,240,0.1) 52%, transparent 70%),
+    linear-gradient(to top, rgba(255,251,240,0.4) 0%, transparent 42%);
+}
+html.sky-bright .nav:not(.scrolled) { background: linear-gradient(to bottom, rgba(255,251,240,0.3), transparent); }
+html.sky-bright .nav:not(.scrolled) .brand,
+html.sky-bright .nav:not(.scrolled) .nav-links a,
+html.sky-bright .nav:not(.scrolled) .burger { color: #201725; }
+html.sky-bright .nav:not(.scrolled) .nav-links a:hover { color: #6b4a1e; }
 .hero h1 {
   font-size: clamp(2.6rem, 8.6vw, 6.6rem); line-height: 0.96; letter-spacing: -0.02em;
   text-transform: uppercase; margin: 0 0 26px; max-width: 15ch;

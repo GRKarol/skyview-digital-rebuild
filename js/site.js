@@ -179,8 +179,13 @@
       }
       return { isNight: isNight, frac: frac, elevation: elevation };
     }
+    function applyBrightness() {
+      var bright = !sunState.isNight && sunState.elevation > 0.5;
+      document.documentElement.classList.toggle('sky-bright', bright);
+    }
     var sunState = getSunState();
-    setInterval(function () { sunState = getSunState(); }, 60000);
+    applyBrightness();
+    setInterval(function () { sunState = getSunState(); applyBrightness(); }, 60000);
 
     function drawRidge(pts, offsetX, offsetY, color) {
       ctx.beginPath(); ctx.moveTo(pts[0][0] + offsetX, H + 10);
